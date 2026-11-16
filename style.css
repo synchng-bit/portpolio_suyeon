@@ -1,0 +1,100 @@
+:root{--s:1;--ease:cubic-bezier(.22,.61,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{background:#fff;color:#1f2121;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.slide{position:relative;width:100%;height:100vh;height:100svh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+/* 1920×1080 무대를 화면에 맞춰 비율 유지 확대/축소 — 피그마 좌표 그대로 */
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;margin:-540px 0 0 -960px;transform:scale(var(--s));transform-origin:center center}
+.t{position:absolute;white-space:nowrap}
+.t p{margin:0}
+.in{font-family:Inter,'Pretendard',sans-serif}.pr{font-family:Pretendard,'Noto Sans KR',sans-serif}.nk{font-family:'Noto Sans KR',Pretendard,sans-serif}.he{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif}
+.cap{text-transform:capitalize}
+/* 등장 애니메이션 (translate/opacity만 사용 → 호버 transform과 충돌 없음) */
+.a{opacity:0;translate:0 26px;transition:opacity .9s var(--ease) var(--d,0s),translate .9s var(--ease) var(--d,0s),transform .7s var(--ease),box-shadow .7s var(--ease)}
+.slide.in .a{opacity:1;translate:0 0}
+/* 이미지 프레임 */
+.shot{position:absolute;margin:0;overflow:hidden;background:#f3f3f3}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+/* 호버 확대: 인(In) / 아웃(Out) 모두 부드럽게 */
+.zi img{transition:transform .8s var(--ease);will-change:transform}
+.zi img{transform-origin:var(--mx,50%) var(--my,50%)}
+.zi:hover img{transform:scale(1.12)}
+.ze{cursor:zoom-in;will-change:transform}
+.ze:hover{transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.045);z-index:20;box-shadow:calc(var(--ry,0deg)*-3) calc(var(--rx,0deg)*3 + 34px) 70px -20px rgba(0,0,0,.4);transition:opacity .9s var(--ease) var(--d,0s),translate .9s var(--ease) var(--d,0s),transform .45s var(--ease),box-shadow .45s var(--ease)}
+.zi{cursor:zoom-in}
+/* 01 cover */
+.giant{display:flex;font-size:600px;font-weight:700;letter-spacing:-60px;line-height:600px;color:#000;opacity:1;translate:none}
+.giant span{display:inline-block;opacity:0;transform:translateY(55%);transition:opacity .9s var(--ease),transform 1.1s var(--ease);transition-delay:calc(var(--i)*.06s + .1s)}
+.slide.in .giant span{opacity:1;transform:none}
+.slide.in .giant span:hover{transform:translateY(-2.5%);transition-delay:0s;transition-duration:.5s}
+.giant{overflow:visible;white-space:nowrap}
+.t a:hover{text-decoration:underline}
+/* 02 index */
+.it{position:absolute;display:block;width:760px;height:100px;cursor:pointer}
+.it i,.it b,.it span{position:absolute;display:block;white-space:nowrap;font-style:normal}
+.it i{left:0;font-size:20.4px;color:#8b918c;line-height:1.45}
+.it b{top:0;font-size:33.6px;font-weight:700;color:#171a19;line-height:1.45;transition:transform .5s var(--ease)}
+.it span{font-size:22.8px;color:#6d7470;line-height:1.45;transition:transform .5s var(--ease)}
+.it u{position:absolute;right:140px;top:2px;font-size:34px;text-decoration:none;opacity:0;transform:translateX(-16px);transition:.5s var(--ease)}
+.it:hover b,.it:hover span{transform:translateX(18px)}
+.it:hover u{opacity:1;transform:none}
+.idx:hover .it:not(:hover){opacity:.35!important}
+.it{transition:opacity .4s,translate .9s var(--ease) var(--d,0s)}
+/* 08 arrows */
+.arrows{position:absolute;left:0;top:0;pointer-events:none}
+/* nav */
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;z-index:50;pointer-events:none}
+.progress i{display:block;height:100%;width:0;background:#171a19;transition:width .4s var(--ease)}
+.dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:11px}
+.dots a{width:9px;height:9px;border-radius:50%;border:1px solid #171a19;background:rgba(255,255,255,.7);display:block;transition:.3s var(--ease);position:relative}
+.dots a.on{background:#171a19;transform:scale(1.4)}
+.dots a:hover::after{content:attr(data-t);position:absolute;right:20px;top:50%;transform:translateY(-50%);white-space:nowrap;font:12px Inter,sans-serif;background:#171a19;color:#fff;padding:4px 8px;border-radius:4px}
+@media (max-width:700px){.dots{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.a{opacity:1;translate:none}}
+
+/* 03 필름스트립 — 마우스 인터랙션 */
+.strip{position:absolute;left:0;top:311px;width:1920px;height:665px;overflow:visible;cursor:grab;touch-action:pan-y;user-select:none}
+.strip.drag{cursor:grabbing}
+.strip .track{position:absolute;left:0;top:0;height:665px;will-change:transform}
+.ph{position:absolute;top:0;margin:0;width:305.87px;height:665px;background:#fff;overflow:hidden;transition:transform .7s var(--ease),box-shadow .7s var(--ease),opacity .5s,filter .5s}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;transition:transform .8s var(--ease)}
+.strip:hover .ph{opacity:.7;filter:saturate(.85)}
+.strip .ph:hover{opacity:1;filter:none;transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.05);z-index:20;box-shadow:calc(var(--ry,0deg)*-3) calc(var(--rx,0deg)*3 + 34px) 70px -20px rgba(0,0,0,.42);transition:transform .45s var(--ease),box-shadow .45s var(--ease),opacity .5s,filter .5s}
+.strip .ph:hover img{transform:translate(calc(var(--nx,0)*-7px),calc(var(--ny,0)*-7px)) scale(1.035)}
+.strip.drag .ph{transition:none;transform:none!important;box-shadow:none}
+
+/* 커스텀 커서: 부드럽게 따라오는 검은 원 */
+.cur,.cur-dot{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;opacity:0;transition:opacity .3s}
+.cur{width:0;height:0}
+.cur i{position:absolute;left:0;top:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#111;box-shadow:0 0 0 1.5px rgba(255,255,255,.75);display:flex;align-items:center;justify-content:center;color:#fff;font:600 13px/1 'Noto Sans KR',sans-serif;letter-spacing:.02em;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background .3s,transform .25s var(--ease)}
+.cur i b{font-weight:600;opacity:0;transform:scale(.6);transition:opacity .25s,transform .35s var(--ease);white-space:nowrap}
+.cur.on,.cur-dot.on{opacity:1}
+.cur.down i{transform:scale(.82)}
+.cur-dot{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#111;box-shadow:0 0 0 1px rgba(255,255,255,.8);z-index:10000}
+@media (hover:hover) and (pointer:fine){html.cc,html.cc *{cursor:none!important}}
+
+/* 포인터를 따라가는 빛(글레어) */
+.ze::after,.ph::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s var(--ease);background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),rgba(255,255,255,0) 45%);mix-blend-mode:soft-light}
+.ze:hover::after,.ph:hover::after{opacity:1}
+.ze img{transition:transform .45s var(--ease)}
+.ze:hover img{transform:translate(calc(var(--nx,0)*-6px),calc(var(--ny,0)*-6px)) scale(1.03)}
+
+/* 호버 = 레이아웃(화면 전체) 확대 · 이미지 내부 확대/틸트 없음 */
+.shot,.ph{transform-origin:center center}
+.zi,.ze{cursor:none}
+.zi:hover,.ze:hover{transform:scale(1.07);z-index:20;box-shadow:0 34px 80px -20px rgba(0,0,0,.4);transition:opacity .9s var(--ease) var(--d,0s),translate .9s var(--ease) var(--d,0s),transform .7s var(--ease),box-shadow .7s var(--ease)}
+.zi:hover img,.ze:hover img,.zi img,.ze img{transform:none!important}
+.strip .ph:hover{transform:scale(1.07);z-index:20;box-shadow:0 34px 80px -20px rgba(0,0,0,.42);transition:transform .7s var(--ease),box-shadow .7s var(--ease),opacity .5s,filter .5s}
+.strip .ph:hover img{transform:none}
+.ze::after,.ph::after{display:none}
+
+/* 08 Maison Atelier System: 호버 확대 없음 */
+#s8 .shot:hover{transform:none!important;box-shadow:none!important;z-index:auto}
+
+/* 05·06 LINK ON: 그림자 없이 3D 틸트 */
+#s5 .shot.d3,#s6 .shot,#s5 .shot.st{background:transparent;overflow:visible;will-change:transform}
+#s5 .shot img,#s6 .shot img{width:100%;height:100%;object-fit:contain}
+#s5 .shot.d3:hover,#s6 .shot:hover{transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.04);box-shadow:none!important;z-index:20;transition:opacity .9s var(--ease) var(--d,0s),translate .9s var(--ease) var(--d,0s),transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .3s}
+
+#s5 .shot.st{cursor:default}
