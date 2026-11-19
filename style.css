@@ -105,7 +105,7 @@ a{color:inherit;text-decoration:none}
 .tools b{font-weight:500;font-size:15px;line-height:1;padding:8px 16px;border:1px solid #1f2121;border-radius:999px}
 /* Contact skills */
 .skills{position:absolute;left:240px;top:560px;width:1440px;display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
-.skills div{border-top:1px solid #1f2121;padding-top:18px;display:flex;flex-direction:column;gap:10px}
+.skills div{border-top:1px solid #1f2121;padding-top:18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
 .skills i{font-style:normal;font-family:Inter,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;color:#6e7370}
 .skills strong{font-size:17px;font-weight:700;color:#1f2121;line-height:1.4}
 .skills span{font-size:15px;color:#6e7370;line-height:1.5}
