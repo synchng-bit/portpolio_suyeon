@@ -124,3 +124,6 @@ a{color:inherit;text-decoration:none}
 .tools-grid img.lg.o{width:34px;height:34px;border-radius:0;transition:filter .35s}
 .tools-grid img.lg.c{width:40px;height:40px;border-radius:10px}
 .tools-grid .tool:hover .tile img.o{filter:invert(1)}
+.tools-grid img.lg.m{width:40px;height:40px;border-radius:0}
+.tools-grid .tool:hover .tile:has(img.lg){background:#f1f2f1;color:#1f2121}
+.tools-grid .tool:hover .tile:has(img.lg.o){background:#1f2121;color:#fff}
